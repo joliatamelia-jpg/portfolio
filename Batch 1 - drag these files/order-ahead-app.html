@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Order Ahead App — Amelia Joliat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=Oswald:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #F7F6F3; color: #16161A; font-family: 'Archivo', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 820px) {
+    [style*="1180px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    nav [style*="1180px"] { padding-top: 15px !important; padding-bottom: 15px !important; }
+
+    h1 { font-size: clamp(38px, 12vw, 72px) !important; letter-spacing: -0.015em !important; }
+    h2 { font-size: clamp(28px, 7.5vw, 42px) !important; }
+    h3 { font-size: 23px !important; }
+    [style*="font-size: 112px"], [style*="font-size: 104px"], [style*="font-size: 96px"], [style*="font-size: 92px"] { font-size: clamp(38px,11.5vw,66px) !important; }
+    [style*="font-size: 64px"], [style*="font-size: 60px"] { font-size: 40px !important; }
+    [style*="font-size: 56px"] { font-size: 31px !important; }
+    [style*="font-size: 44px"] { font-size: 29px !important; }
+    [style*="font-size: 40px"] { font-size: 26px !important; }
+    [style*="font-size: 26px"], [style*="font-size: 24px"] { font-size: 19px !important; }
+    nav [style*="font-size: 20px"] { font-size: 16px !important; }
+
+    /* multi-column grids collapse */
+    [style*="repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
+    [style*="repeat(3"], [style*="repeat(2"],
+    [style*="1fr 1fr"], [style*="1fr 2fr"], [style*="2fr 1fr"],
+    [style*="1.5fr 1fr"], [style*="1.4fr 1fr"], [style*="0.95fr 1fr"],
+    [style*="auto 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="gap: 72px"] { gap: 36px !important; }
+    [style*="gap: 44px"] { gap: 26px !important; }
+
+    /* home project rows */
+    a.row { grid-template-columns: 1fr !important; gap: 13px !important; padding: 22px 0 !important; }
+    a.row [style*="justify-self: end"] { justify-self: start !important; justify-content: flex-start !important; max-width: none !important; }
+
+    /* process / artifact columns */
+    [style*="0 0 240px"] { flex: 0 0 100% !important; aspect-ratio: 4 / 3 !important; }
+    [style*="0 0 84px"] { flex: 0 0 52px !important; }
+
+
+    /* process rows wrap so the artifact drops below the text */
+    div:has(> [style*="0 0 240px"]),
+    div:has(> [style*="0 0 84px"]) { flex-wrap: wrap !important; }
+    [style*="0 0 240px"] + *, [style*="max-width: 560px"] { max-width: 100% !important; }
+
+    /* phone + browser mockups scale to fit */
+    [style*="424px"] { zoom: 0.8; }
+
+    /* live ad units scroll inside their own frame */
+    .adbox { max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+    .adpanel { gap: 22px !important; }
+    .adframe { max-width: 100% !important; }
+
+    /* about gallery */
+    [style*="column-count"] { column-count: 1 !important; }
+
+/* header meta + counts left-align instead of hugging the right edge */
+    header [style*="text-align: right"] { text-align: left !important; }
+    header [style*="min-width: 200px"] { flex: 1 0 100% !important; }
+    header [style*="gap: 40px"] { gap: 20px !important; }
+
+    /* footer + section padding */
+    footer [style*="text-align: right"] { text-align: left !important; }
+    [style*="64px 40px"] { padding: 44px 20px !important; }
+    [style*="88px 40px"] { padding: 40px 20px 26px !important; }
+    [style*="72px 40px"] { padding: 46px 20px 0 !important; }
+    [style*="100px 40px"] { padding: 54px 20px !important; }
+    [style*="40px 40px"], [style*="48px 40px"], [style*="24px 40px"], [style*="8px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
+  }
+</style>
+<style>
+  .proc{opacity:0;transform:translateY(28px);transition:opacity 1.3s ease,transform 1.3s cubic-bezier(.2,.7,.2,1);}
+  .proc.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){.proc{opacity:1;transform:none;transition:none;}}
+</style>
+<script>
+(function(){
+  if(window.__procReveal)return;window.__procReveal=true;
+  function setup(){
+    var items=[].slice.call(document.querySelectorAll('.proc'));
+    if(!items.length)return false;
+    if(!('IntersectionObserver' in window)){items.forEach(function(i){i.classList.add('in');});return true;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(i){io.observe(i);});
+    return true;
+  }
+  if(!setup()){var t=0,iv=setInterval(function(){if(setup()||++t>80)clearInterval(iv);},100);}
+})();
+</script>
+<style>
+@keyframes flowX { from { background-position-x: 0px; } to { background-position-x: 1400px; } }
+.gradlink { text-decoration: none !important; padding-bottom: 4px; }
+.gradlink:hover { background-image: linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf,#d9afee); background-size: 1400px 2px; background-position-y: 100%; background-repeat: repeat-x; animation: flowX 7s linear infinite; }
+.gradwrap { display: inline-block; border-radius: 3px; padding: 1.5px; background: #dcdbd7; }
+.gradwrap:hover { background-image: linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf,#d9afee); background-size: 1400px 100%; background-position-y: 50%; background-repeat: repeat-x; animation: flowX 7s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .gradlink:hover, .gradwrap:hover { animation: none; } }
+</style>
+</helmet>
+<nav style="position:sticky;top:0;z-index:20;background:#16161A;">
+  <div style="max-width:1180px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="index.html" style="font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#EFEEEB;">Amelia Joliat</a>
+    <div style="display:flex;gap:28px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;">
+      <a href="index.html" style="color:#EFEEEB;">Work</a><a href="about.html" style="color:#8f8c85;">About</a>
+    </div>
+  </div>
+  <div style="height:4px;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);"></div>
+</nav>
+
+<article style="max-width:1180px;margin:0 auto;padding:80px 40px 0;">
+  <div style="display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:36px;"><span>Case study — No. 05</span><span>UX &amp; prototyping</span></div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;"><span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:6px 13px;background:#afeeee;color:#1f5252;border-radius:2px;white-space:nowrap;">Digital</span></div>
+  <h1 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:92px;line-height:0.94;letter-spacing:-0.01em;">App UX</h1>
+  <p style="margin:24px 0 0;font-family:'Archivo',sans-serif;font-size:26px;line-height:1.32;color:#33333a;max-width:760px;">A bakery pickup app built around the customer's path rather than its surface with user flow, wireframes, screen states, and a working prototype.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px;padding:26px 0;border-top:1.5px solid #16161A;border-bottom:1px solid #dcdbd7;">
+    <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:8px;">Focus</div><div style="font-size:17px;">UX &amp; interaction</div></div>
+    <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:8px;">Role</div><div style="font-size:17px;">User flow, wireframes, prototype</div></div>
+    <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:8px;">Context</div><div style="font-size:17px;">Kent State coursework</div></div>
+    <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:8px;">Screens</div><div style="font-size:17px;">10, incl. modal states</div></div>
+  </div>
+  <p style="margin:26px 0 0;font-size:17px;line-height:1.6;color:#5f5f66;max-width:760px;font-style:italic;">*This was a user-experience exercise, not a branding one. The visual treatment is deliberately plain. The goal of this project was to walk through a typical user experience ordering from this cafe.&nbsp;</p>
+</article>
+
+<section class="proc" style="max-width:1180px;margin:0 auto;padding:76px 40px 0;">
+  <div style="width:56px;height:6px;border-radius:2px;background:#d9afee;margin-bottom:16px;"></div>
+  <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:14px;">01 — The flow</div>
+  <h2 style="margin:0 0 18px;font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1.02;">Wired before it was styled</h2>
+  <p style="margin:0;font-size:18px;line-height:1.65;color:#33333a;max-width:660px;">Every screen was connected in Adobe XD before any of it was decorated. Browse is the hub, product cards open detail, the icons on each card fire their own confirmations, and the tab bar reaches cart and account from anywhere.&nbsp;</p>
+  <figure style="margin:36px 0 0;max-width:440px;"><div style="border:1px solid #e6e3dd;border-radius:3px;overflow:hidden;background:#fff;"><img src="assets/lc/flow-s.jpg" alt="Prototype wiring showing connections between all screens" style="display:block;width:100%;"></div><figcaption style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#8a8a90;margin-top:10px;">Prototype wiring — Adobe XD</figcaption></figure>
+</section>
+
+<section class="proc" style="max-width:1180px;margin:0 auto;padding:76px 40px 0;">
+  <div style="width:56px;height:6px;border-radius:2px;background:#afbaee;margin-bottom:16px;"></div>
+  <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:14px;">02 — The mechanic</div>
+  <h2 style="margin:0 0 18px;font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1.02;">One idea, carried across five screens</h2>
+  <p style="margin:0 0 34px;font-size:18px;line-height:1.65;color:#33333a;max-width:660px;">The loyalty currency is the spine of the experience, and it appears at every point where a customer would want to know about it. Like many other food apps, a loyalty program keeps customers coming back to use their points.&nbsp;</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1.5px solid #16161A;max-width:940px;">
+    <div style="padding:30px 30px 0 0;border-right:1px solid #dcdbd7;"><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:10px;">Before</div><div style="font-size:16px;line-height:1.55;color:#33333a;">The add-to-cart confirmation tells you what the item will earn, so the incentive lands at the moment of choice.</div></div>
+    <div style="padding:30px 30px 0 30px;border-right:1px solid #dcdbd7;"><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:10px;">During</div><div style="font-size:16px;line-height:1.55;color:#33333a;">Cart and checkout both show the balance applied as a discount line, next to the subtotal it reduces.</div></div>
+    <div style="padding:30px 0 0 30px;"><div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a90;margin-bottom:10px;">After</div><div style="font-size:16px;line-height:1.55;color:#33333a;">The confirmation, the order tracker, and the account screen each restate what was earned and what the balance is now.</div></div>
+  </div>
+  <p style="margin:34px 0 0;font-size:18px;line-height:1.65;color:#33333a;max-width:660px;">The product detail screen carries another important variety of details: allergens, ingredients, and a live count of what's left. A bakery sells out, so stock should be visible before someone commits to a pickup time.&nbsp;</p>
+</section>
+
+<section class="proc" style="max-width:1180px;margin:0 auto;padding:76px 40px 0;">
+  <div style="width:56px;height:6px;border-radius:2px;background:#afeeee;margin-bottom:16px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:18px;">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:12px;">03 — Try it</div>
+      <h2 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1.02;">The wired prototype</h2>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span class="gradwrap"><button type="button" onClick="{{ toggleHints }}" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:11px 18px;border:0;background:transparent;color:#16161A;border-radius:2px;cursor:pointer;">{{ hintLabel }}</button></span>
+      <span class="gradwrap"><button type="button" onClick="{{ reset }}" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:11px 18px;border:0;background:#16161A;color:#EFEEEB;border-radius:2px;cursor:pointer;">Restart</button></span>
+    </div>
+  </div>
+  <p style="margin:0 0 34px;font-size:18px;line-height:1.65;color:#33333a;max-width:660px;">Start at the login screen and order a muffin. The tab bar, product cards, card icons, and every button in the purchase path are live.</p>
+
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:start;">
+    <div style="width:424px;padding:12px;background:#1b1b1f;border-radius:56px;box-shadow:0 34px 64px -30px rgba(30,20,10,.5);">
+      <div style="position:relative;width:400px;height:867px;border-radius:46px;overflow:hidden;background:#FDF8F2;">
+        <div ref="{{ scrollRef }}" style="width:100%;height:100%;overflow-y:auto;overflow-x:hidden;">
+          <div style="position:relative;">
+            {{ screenImg }}
+            {{ hotspotLayer }}
+          </div>
+        </div>
+        <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;inset:0;background:rgba(126,116,100,.42);display:flex;align-items:center;justify-content:center;padding:24px;">
+            <div style="position:relative;width:322px;filter:drop-shadow(0 20px 38px rgba(60,50,35,.34));">
+              {{ modalImg }}
+              {{ modalHotspotLayer }}
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a8a90;margin-bottom:18px;">Screens — jump anywhere</div>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #dcdbd7;">
+        <button type="button" onClick="{{ rows.login.go }}" style="{{ rows.login.style }}" style-hover="background:#d9afee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">01</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Log in</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Entry</span>
+        </button>
+        <button type="button" onClick="{{ rows.browse.go }}" style="{{ rows.browse.style }}" style-hover="background:#c4b4ee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">02</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Browse</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Hub</span>
+        </button>
+        <button type="button" onClick="{{ rows.pdp.go }}" style="{{ rows.pdp.style }}" style-hover="background:#afbaee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">03</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Product detail</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Allergens · Stock</span>
+        </button>
+        <button type="button" onClick="{{ rows.cart.go }}" style="{{ rows.cart.style }}" style-hover="background:#afeeee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">04</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Cart</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Crumbz applied</span>
+        </button>
+        <button type="button" onClick="{{ rows.checkout.go }}" style="{{ rows.checkout.style }}" style-hover="background:#bfeeaf;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">05</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Checkout</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Pickup time</span>
+        </button>
+        <button type="button" onClick="{{ rows.status.go }}" style="{{ rows.status.style }}" style-hover="background:#c4b4ee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">06</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Order status</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Live tracker</span>
+        </button>
+        <button type="button" onClick="{{ rows.account.go }}" style="{{ rows.account.style }}" style-hover="background:#d9afee;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8a8a90;min-width:22px;">07</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#16161A;">Account</span>
+          <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8a8a90;">Balance · Saved info</span>
+        </button>
+      </div>
+      <div style="margin-top:22px;font-family:'Space Mono',monospace;font-size:11px;line-height:1.9;letter-spacing:0.04em;color:#8a8a90;">Artboards exported from Adobe XD as accurately as possible.&nbsp;<br>Hotspots rebuilt in HTML to mimic original flow.</div>
+    </div>
+  </div>
+</section>
+
+<section class="proc" style="max-width:1180px;margin:0 auto;padding:76px 40px 0;">
+  <div style="width:56px;height:6px;border-radius:2px;background:#bfeeaf;margin-bottom:16px;"></div>
+  <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:14px;">04 — Where it stops</div>
+  <h2 style="margin:0 0 18px;font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1.02;">If this project continued</h2>
+  <p style="margin:0 0 34px;font-size:18px;line-height:1.65;color:#33333a;max-width:660px;">This prototype is a project from when I was a student, so I never finished building out the full app due to the time constraint and project requirements. I was not thorough in a completed app, because the goal was only to show the flow of purchasing an item. If I were to pick it up now, here are some things I would add...&nbsp;</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px;max-width:940px;border-top:1.5px solid #16161A;">
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Favorites/Favs</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">The heart icon and its confirmation both exist, so the saved-items list is the obvious next screen. App notifications would be user specific based on favorited products.</div></div>
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Rewards catalog</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">The account screen shows a balance and a "view rewards" link with nothing behind it yet. The finished concept of the loyalty program would include actual rewards and a way to activate them.&nbsp;</div></div>
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Search &amp; categories</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">The field and the category chips are designed but not wired to result states; the concept would be the same throughout.&nbsp;</div></div>
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Sign up &amp; menu</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">Account creation and the drawer behind the hamburger are both stubs.&nbsp;</div></div>
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Real catalog copy</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">The browse grid repeats one placeholder product. A populated menu would be an important upgrade.&nbsp;</div></div>
+    <div style="padding:22px 0;border-bottom:1px solid #dcdbd7;"><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;">Reconciled totals</div><div style="font-size:16px;line-height:1.55;color:#5f5f66;margin-top:6px;">Cart and confirmation currently disagree on the discount. Real numbers would come from a defined earn rate.</div></div>
+  </div>
+</section>
+
+<footer style="border-top:1.5px solid #16161A;margin-top:80px;">
+  <div style="max-width:1180px;margin:0 auto;padding:64px 40px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;">
+    <div><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1;">Let's work together.</div><a href="mailto:joliatamelia@gmail.com" class="gradlink" style="font-family:'Space Mono',monospace;font-size:14px;color:#16161A;margin-top:12px;display:inline-block;">joliatamelia@gmail.com</a></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;text-align:right;line-height:2;"><span style="font-size:15px;display:inline-block;transform:translateY(4px);">©</span> 2026 Amelia Joliat<br>Portfolio</div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const W = 860;
+const TABS = [
+  { x: 120, y: 1735, w: 100, h: 96, go: 'account', label: 'Account' },
+  { x: 300, y: 1735, w: 100, h: 96, go: 'cart', label: 'Cart' }
+];
+const SCREENS = {
+  login: {
+    src: 'assets/lc/login.png', h: 1864, label: 'Log in', note: 'Entry',
+    spots: [
+      { x: 72, y: 1075, w: 716, h: 97, go: 'browse', label: 'Log in' },
+      { x: 72, y: 1385, w: 716, h: 105, go: 'browse', label: 'Log in with Google' },
+      { x: 72, y: 1540, w: 716, h: 105, go: 'browse', label: 'Log in with Apple' }
+    ]
+  },
+  browse: {
+    src: 'assets/lc/browse-clean-s.jpg', h: 1863, label: 'Browse', note: 'Hub',
+    spots: [
+      { x: 119, y: 796, w: 80, h: 66, modal: 'favs', label: 'Save to favorites' },
+      { x: 300, y: 796, w: 78, h: 66, modal: 'cart', label: 'Add to cart' },
+      { x: 74, y: 868, w: 345, h: 130, go: 'pdp', label: 'Blueberry Muffins' },
+      { x: 440, y: 796, w: 345, h: 202, go: 'pdp', label: 'Raspberry Scones' },
+      { x: 74, y: 1185, w: 345, h: 241, go: 'pdp', label: 'Pumpkin Muffins' },
+      { x: 440, y: 1185, w: 345, h: 241, go: 'pdp', label: 'Blueberry Muffin' },
+      { x: 74, y: 1579, w: 345, h: 108, go: 'pdp', label: 'Blueberry Muffin' },
+      { x: 440, y: 1579, w: 345, h: 108, go: 'pdp', label: 'Blueberry Muffin' },
+      { x: 122, y: 1722, w: 94, h: 112, go: 'account', label: 'Account' },
+      { x: 302, y: 1722, w: 94, h: 112, go: 'cart', label: 'Cart' }
+    ]
+  },
+  pdp: {
+    src: 'assets/lc/pdp-s.jpg', h: 1864, label: 'Product detail', note: 'Allergens · stock',
+    spots: [
+      { x: 68, y: 98, w: 84, h: 84, go: 'browse', label: 'Back' },
+      { x: 700, y: 96, w: 90, h: 84, modal: 'favs', label: 'Save to favorites' },
+      { x: 72, y: 1165, w: 716, h: 100, modal: 'cart', label: 'Add to cart' }
+    ].concat(TABS)
+  },
+  cart: {
+    src: 'assets/lc/cart-s.jpg', h: 1864, label: 'Cart', note: 'Crumbz applied',
+    spots: [
+      { x: 68, y: 98, w: 100, h: 90, go: 'browse', label: 'Back' },
+      { x: 72, y: 1540, w: 716, h: 100, go: 'checkout', label: 'Proceed to checkout' }
+    ].concat(TABS)
+  },
+  checkout: {
+    src: 'assets/lc/checkout.png', h: 1864, label: 'Checkout', note: 'Pickup time',
+    spots: [
+      { x: 76, y: 100, w: 100, h: 96, go: 'cart', label: 'Back' },
+      { x: 72, y: 1460, w: 716, h: 96, modal: 'order', label: 'Complete order' }
+    ].concat(TABS)
+  },
+  status: {
+    src: 'assets/lc/order-status.png', h: 1864, label: 'Order status', note: 'Live tracker',
+    spots: [
+      { x: 72, y: 100, w: 104, h: 96, go: 'browse', label: 'Back' }
+    ].concat(TABS)
+  },
+  account: {
+    src: 'assets/lc/account.png', h: 1864, label: 'Account', note: 'Balance · saved info',
+    spots: [
+      { x: 68, y: 100, w: 84, h: 80, go: 'browse', label: 'Back' },
+      { x: 72, y: 1600, w: 306, h: 74, go: 'login', label: 'Sign out' }
+    ].concat(TABS)
+  }
+};
+const ORDER = ['login', 'browse', 'pdp', 'cart', 'checkout', 'status', 'account'];
+const HUES = ['#d9afee', '#c4b4ee', '#afbaee', '#afeeee', '#bfeeaf', '#c4b4ee', '#d9afee'];
+const ACTIVE = {
+  login: '#7a5f8c', browse: '#6a5f96', pdp: '#4f5a96', cart: '#2f7373',
+  checkout: '#4e7a3a', status: '#6a5f96', account: '#7a5f8c'
+};
+const ACCENTS = ['#7a5f8c', '#16161A', '#16161A', '#16161A', '#16161A', '#16161A', '#16161A'];
+const MODALS = {
+  cart: { src: 'assets/lc/modal-cart.png', w: 690, h: 548, spots: [
+    { x: 172, y: 339, w: 344, h: 84, go: 'cart', label: 'Go to cart' },
+    { x: 170, y: 457, w: 346, h: 46, close: true, label: 'Continue shopping' }
+  ] },
+  favs: { src: 'assets/lc/modal-favs.png', w: 690, h: 548, spots: [
+    { x: 170, y: 457, w: 346, h: 46, close: true, label: 'Continue shopping' }
+  ] },
+  order: { src: 'assets/lc/modal-order.png', w: 700, h: 538, spots: [
+    { x: 178, y: 350, w: 344, h: 87, go: 'status', label: 'Order status' },
+    { x: 176, y: 462, w: 348, h: 44, go: 'browse', label: 'Continue shopping' }
+  ] }
+};
+
+class Component extends DCLogic {
+  state = { screen: 'login', modal: null, hints: false, hover: null, hoverRow: null };
+
+  constructor(props) {
+    super(props);
+    this.scrollRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.screen !== this.state.screen && this.scrollRef.current) {
+      this.scrollRef.current.scrollTop = 0;
+    }
+  }
+
+  layer(spots, boxW, boxH, keyPrefix) {
+    const hints = this.state.hints;
+    const self = this;
+    return React.createElement('div', { style: { position: 'absolute', inset: 0 } },
+      spots.filter(function (s) { return s.w > 0; }).map(function (s, i) {
+        const key = keyPrefix + i;
+        const hot = self.state.hover === key;
+        return React.createElement('button', {
+          key: key,
+          type: 'button',
+          title: s.label,
+          'aria-label': s.label,
+          onMouseEnter: function () { self.setState({ hover: key }); },
+          onMouseLeave: function () { self.setState({ hover: null }); },
+          onClick: function () {
+            if (s.modal) self.setState({ modal: s.modal, hover: null });
+            else if (s.close) self.setState({ modal: null, hover: null });
+            else self.setState({ screen: s.go, modal: null, hover: null });
+          },
+          style: {
+            position: 'absolute',
+            left: (s.x / boxW * 100) + '%',
+            top: (s.y / boxH * 100) + '%',
+            width: (s.w / boxW * 100) + '%',
+            height: (s.h / boxH * 100) + '%',
+            padding: 0,
+            cursor: 'pointer',
+            borderRadius: '18px',
+            border: hints ? '2px dashed rgba(214,150,40,.9)' : 'none',
+            background: hot ? 'rgba(240,178,60,.34)' : 'transparent',
+            transition: 'background .12s ease'
+          }
+        });
+      })
+    );
+  }
+
+  renderVals() {
+    const self = this;
+    const sc = SCREENS[this.state.screen] || SCREENS.login;
+    const md = this.state.modal ? MODALS[this.state.modal] : null;
+    return {
+      screenImg: React.createElement('img', {
+        src: sc.src, alt: 'App screen',
+        style: { display: 'block', width: '100%' }
+      }),
+      modalImg: md ? React.createElement('img', {
+        src: md.src, alt: 'Confirmation',
+        style: { display: 'block', width: '100%' }
+      }) : null,
+      scrollRef: this.scrollRef,
+      modalOpen: !!md,
+      modalSrc: md ? md.src : '',
+      hintLabel: this.state.hints ? 'Hide hotspots' : 'Show hotspots',
+      hotspotLayer: this.layer(sc.spots, W, sc.h, this.state.screen + '-'),
+      modalHotspotLayer: md ? this.layer(md.spots, md.w, md.h, 'modal-') : null,
+      rows: ORDER.reduce(function (o, k, i) {
+        const on = self.state.screen === k;
+        o[k] = {
+          style: {
+            display: 'flex', alignItems: 'baseline', gap: '16px', textAlign: 'left',
+            padding: '14px 6px', border: 'none', borderBottom: '1px solid #dcdbd7',
+            cursor: 'pointer', fontFamily: "'Archivo', sans-serif",
+            transition: 'background .15s ease',
+            background: on ? HUES[i] : 'transparent'
+          },
+          go: function () { self.setState({ screen: k, modal: null }); }
+        };
+        return o;
+      }, {}),
+      toggleHints: function () { self.setState(function (s) { return { hints: !s.hints }; }); },
+      reset: function () { self.setState({ screen: 'login', modal: null }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
