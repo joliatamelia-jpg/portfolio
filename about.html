@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>About — Amelia Joliat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=Oswald:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #F7F6F3; color: #16161A; font-family: 'Archivo', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  image-slot { display: block; width: 100%; height: 100%; }
+  @keyframes resGradFlow { from { background-position-x: 0px; } to { background-position-x: 1400px; } }
+  .resbtn { background: #dcdbd7; transition: padding .25s ease, box-shadow .25s ease; }
+  .resbtn:hover { padding: 3px; box-shadow: 0 10px 24px -12px rgba(0,0,0,.38); background-image: linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf,#d9afee); background-size: 1400px 100%; background-position-y: 50%; background-repeat: repeat-x; animation: resGradFlow 7s linear infinite; }
+  @media (prefers-reduced-motion: reduce) { .resbtn:hover { animation: none; } }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 820px) {
+    [style*="1180px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    nav [style*="1180px"] { padding-top: 15px !important; padding-bottom: 15px !important; }
+
+    h1 { font-size: clamp(38px, 12vw, 72px) !important; letter-spacing: -0.015em !important; }
+    h2 { font-size: clamp(28px, 7.5vw, 42px) !important; }
+    h3 { font-size: 23px !important; }
+    [style*="font-size: 112px"], [style*="font-size: 104px"], [style*="font-size: 96px"], [style*="font-size: 92px"] { font-size: clamp(38px,11.5vw,66px) !important; }
+    [style*="font-size: 64px"], [style*="font-size: 60px"] { font-size: 40px !important; }
+    [style*="font-size: 56px"] { font-size: 31px !important; }
+    [style*="font-size: 44px"] { font-size: 29px !important; }
+    [style*="font-size: 40px"] { font-size: 26px !important; }
+    [style*="font-size: 26px"], [style*="font-size: 24px"] { font-size: 19px !important; }
+    nav [style*="font-size: 20px"] { font-size: 16px !important; }
+
+    /* multi-column grids collapse */
+    [style*="repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
+    [style*="repeat(3"], [style*="repeat(2"],
+    [style*="1fr 1fr"], [style*="1fr 2fr"], [style*="2fr 1fr"],
+    [style*="1.5fr 1fr"], [style*="1.4fr 1fr"], [style*="0.95fr 1fr"],
+    [style*="auto 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="gap: 72px"] { gap: 36px !important; }
+    [style*="gap: 44px"] { gap: 26px !important; }
+
+    /* home project rows */
+    a.row { grid-template-columns: 1fr !important; gap: 13px !important; padding: 22px 0 !important; }
+    a.row [style*="justify-self: end"] { justify-self: start !important; justify-content: flex-start !important; max-width: none !important; }
+
+    /* process / artifact columns */
+    [style*="0 0 240px"] { flex: 0 0 100% !important; aspect-ratio: 4 / 3 !important; }
+    [style*="0 0 84px"] { flex: 0 0 52px !important; }
+
+
+    /* process rows wrap so the artifact drops below the text */
+    div:has(> [style*="0 0 240px"]),
+    div:has(> [style*="0 0 84px"]) { flex-wrap: wrap !important; }
+    [style*="0 0 240px"] + *, [style*="max-width: 560px"] { max-width: 100% !important; }
+
+    /* phone + browser mockups scale to fit */
+    [style*="424px"] { zoom: 0.8; }
+
+    /* live ad units scroll inside their own frame */
+    .adbox { max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+    .adpanel { gap: 22px !important; }
+    .adframe { max-width: 100% !important; }
+
+    /* about gallery */
+    [style*="column-count"] { column-count: 1 !important; }
+
+/* header meta + counts left-align instead of hugging the right edge */
+    header [style*="text-align: right"] { text-align: left !important; }
+    header [style*="min-width: 200px"] { flex: 1 0 100% !important; }
+    header [style*="gap: 40px"] { gap: 20px !important; }
+
+    /* footer + section padding */
+    footer [style*="text-align: right"] { text-align: left !important; }
+    [style*="64px 40px"] { padding: 44px 20px !important; }
+    [style*="88px 40px"] { padding: 40px 20px 26px !important; }
+    [style*="72px 40px"] { padding: 46px 20px 0 !important; }
+    [style*="100px 40px"] { padding: 54px 20px !important; }
+    [style*="40px 40px"], [style*="48px 40px"], [style*="24px 40px"], [style*="8px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
+  }
+</style>
+<style>
+@keyframes flowX { from { background-position-x: 0px; } to { background-position-x: 1400px; } }
+.gradlink { text-decoration: none !important; padding-bottom: 4px; }
+.gradlink:hover { background-image: linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf,#d9afee); background-size: 1400px 2px; background-position-y: 100%; background-repeat: repeat-x; animation: flowX 7s linear infinite; }
+.gradwrap { display: inline-block; border-radius: 3px; padding: 1.5px; background: #dcdbd7; }
+.gradwrap:hover { background-image: linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf,#d9afee); background-size: 1400px 100%; background-position-y: 50%; background-repeat: repeat-x; animation: flowX 7s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .gradlink:hover, .gradwrap:hover { animation: none; } }
+</style>
+<script>
+(function(){
+  if(window.__lbInit)return;window.__lbInit=true;
+  function build(){
+    var o=document.createElement('div');
+    o.id='om-lightbox';
+    o.style.cssText='position:fixed;inset:0;z-index:999;background:rgba(18,18,20,.94);display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:40px;cursor:zoom-out;';
+    o.innerHTML='<img id="om-lb-img" alt="" style="max-width:100%;max-height:84vh;display:block;border-radius:3px;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);"><div id="om-lb-cap" style="font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(239,238,235,.8);text-align:center;"></div>';
+    document.body.appendChild(o);
+    o.addEventListener('click',close);
+    return o;
+  }
+  function close(){var o=document.getElementById('om-lightbox');if(o)o.style.display='none';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.addEventListener('click',function(e){
+    var f=e.target.closest&&e.target.closest('.galfig');
+    if(!f)return;
+    var o=document.getElementById('om-lightbox')||build();
+    document.getElementById('om-lb-img').src=f.getAttribute('data-src');
+    document.getElementById('om-lb-cap').textContent=f.getAttribute('data-cap')||'';
+    o.style.display='flex';
+  });
+})();
+</script>
+</helmet>
+<nav style="position:sticky;top:0;z-index:10;background:#16161A;">
+  <div style="max-width:1180px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="index.html" style="font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#EFEEEB;">Amelia Joliat</a>
+    <div style="display:flex;gap:28px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;">
+      <a href="index.html" style="color:#8f8c85;">Work</a><a href="about.html" style="color:#EFEEEB;">About</a>
+    </div>
+  </div>
+  <div style="height:4px;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);"></div>
+</nav>
+
+<header style="max-width:1180px;margin:0 auto;padding:88px 40px 48px;">
+  <div style="display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:40px;"><span>About</span><span>Full-stack graphic designer</span></div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:72px;align-items:start;">
+    <div>
+    <h1 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:104px;line-height:0.9;letter-spacing:-0.01em;">Amelia Joliat</h1>
+  <p style="margin:30px 0 0;font-family:'Archivo',sans-serif;font-size:24px;line-height:1.35;color:#33333a;max-width:640px;">A full-stack graphic designer with a passion for delivering polished work, from print editorial to animated web.</p>
+  <a href="assets/Amelia-Joliat-Resume.pdf" download="" class="resbtn" style="display:inline-block;margin-top:30px;border-radius:100px;padding:1.5px;box-shadow:0 6px 18px -10px rgba(0,0,0,.3);"><span style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#16161A;background:#F7F6F3;padding:13px 27px;border-radius:100px;"><span style="font-size:15px;">↓</span> Download résumé</span></a>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div style="border-radius:100px;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);padding:4px;box-shadow:0 8px 22px -12px rgba(0,0,0,.35);"><div style="width:190px;height:190px;border-radius:100px;overflow:hidden;background:#ece9e3;"><img src="assets/amelia-portrait.png" alt="Amelia Joliat" style="display:block;width:100%;height:100%;object-fit:contain;"></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- BIO + SKILLS + TIMELINE -->
+<section style="max-width:1180px;margin:0 auto;padding:8px 40px 40px;display:grid;grid-template-columns:1.5fr 1fr;gap:72px;align-items:start;">
+  <div>
+<div style="margin-bottom:34px;display:grid;grid-template-columns:1fr 1fr;gap:24px 32px;max-width:520px;">
+      <div><div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:7px;">Based in</div><div style="font-size:16px;">Cleveland, OH</div></div>
+      <div><div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:7px;">Availability</div><div style="font-size:16px;">Open</div></div>
+      <div><div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:7px;">Focus</div><div style="font-size:16px;">Editorial · Campaign · Digital</div></div>
+      <div><div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:7px;">Email</div><a href="mailto:joliatamelia@gmail.com" style="font-size:16px;">joliatamelia@gmail.com</a></div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:24px;border-top:1.5px solid #16161A;padding-top:22px;">Biography</div>
+    <div style="font-size:18px;line-height:1.65;color:#33333a;display:flex;flex-direction:column;gap:20px;max-width:620px;">
+      <p style="margin:0;">Amelia Joliat is a full-stack graphic designer with a passion for delivering polished work.</p>
+      <p style="margin:0;">While Amelia earned her Bachelor's in Visual Communication Design from Kent State University in 2024, her passion for design stems from the computer games she played in her youth.</p>
+      <p style="margin:0;">Completing her minor in User Experience Design, Amelia learned essential HTML and CSS skills to pair with her extensive knowledge and experience using the Adobe Creative Suite.</p>
+      <p style="margin:0;">These skills have been honed during her years at North Coast Media (NCM), a Cleveland-based B2B publishing company. Amelia worked directly with clients to deliver custom static digital marketing materials, animated HTML ads (NCM's first!), and printed editorial pieces for a wide range of companies. She has experience working both independently and as a key component of a talented team.</p>
+    </div>
+    <div style="margin-top:44px;max-width:620px;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:8px;border-top:1.5px solid #16161A;padding-top:22px;">Also in the sketchbook</div>
+      <div style="font-family:'Archivo',sans-serif;font-size:14px;color:#8a8a90;margin-bottom:22px;">Click any piece to view it full size.</div>
+      <div style="column-count:2;column-gap:18px;">
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/blue-monday-s.jpg" data-cap="Blue Monday Merch Co. · apparel graphic">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/blue-monday-s.jpg" alt="Blue Monday Merch Co. · apparel graphic" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Blue Monday Merch Co. · apparel graphic</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/moonlit-forest-s.jpg" data-cap="Moonlit pines · vector illustration">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/moonlit-forest-s.jpg" alt="Moonlit pines · vector illustration" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Moonlit pines · vector illustration</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/sw-colorcard-s.jpg" data-cap="Sherwin-Williams · custom colorcard">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/sw-colorcard-s.jpg" alt="Sherwin-Williams · custom colorcard" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Sherwin-Williams · custom colorcard</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/marigolds-s.jpg" data-cap="Birth flowers · digital illustration">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/marigolds-s.jpg" alt="Birth flowers · digital illustration" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Birth flowers · digital illustration</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/starview-schemes-s.jpg" data-cap="Starview Homes · interior schemes">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/starview-schemes-s.jpg" alt="Starview Homes · interior schemes" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Starview Homes · interior schemes</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/albatross.jpeg" data-cap="Albatross · digital illustration">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/albatross.jpeg" alt="Albatross · digital illustration" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Albatross · digital illustration</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/inspirit-feature-wall-s.jpg" data-cap="Inspirit Senior Living · feature wall">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/inspirit-feature-wall-s.jpg" alt="Inspirit Senior Living · feature wall" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Inspirit Senior Living · feature wall</figcaption>
+        </figure>
+        <figure class="galfig" style="margin:0 0 18px;break-inside:avoid;cursor:zoom-in;" data-src="assets/gal/clownfish.jpeg" data-cap="Clownfish · digital illustration">
+          <div style="border-radius:3px;overflow:hidden;background:#e9e7e1;border:1px solid #e2e0d9;"><img src="assets/gal/clownfish.jpeg" alt="Clownfish · digital illustration" style="display:block;width:100%;height:auto;"></div>
+          <figcaption style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;margin-top:7px;">Clownfish · digital illustration</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:44px;">
+    <div style="background:#f1efe9;border:1px solid #e2e0d9;border-radius:6px;padding:30px 28px;display:flex;flex-direction:column;gap:14px;width:100%;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:12px;">Contact</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:11px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.35;color:#16161A;"><svg viewBox="0 0 16 16" style="width:28px;height:28px;background:#16161A;border-radius:100px;padding:5px;box-sizing:border-box;flex:none;display:block;" aria-hidden="true"><path fill="#F7F6F3" d="M8 .8c-2.9 0-5.2 2.3-5.2 5.2 0 3.7 5.2 9.2 5.2 9.2s5.2-5.5 5.2-9.2C13.2 3.1 10.9.8 8 .8zm0 7.4a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4z"/></svg><span>Cleveland, OH</span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.35;color:#16161A;"><svg viewBox="0 0 16 16" style="width:28px;height:28px;background:#16161A;border-radius:100px;padding:5px;box-sizing:border-box;flex:none;display:block;" aria-hidden="true"><path fill="#F7F6F3" d="M2.4 3.1a1.5 1.5 0 0 1 1.1-1.4l1.7-.4c.5-.1 1 .1 1.2.6l1.1 2.3c.2.4.1.9-.3 1.2l-1 .8c.6 1.3 1.7 2.4 3 3l.8-1c.3-.4.8-.5 1.2-.3l2.3 1.1c.5.2.7.7.6 1.2l-.4 1.7a1.5 1.5 0 0 1-1.4 1.1C6.7 14 2.4 9.7 2.4 3.1z"/></svg><span>440-279-7220</span></div>
+      <div style="display:flex;align-items:center;gap:11px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.35;color:#16161A;"><svg viewBox="0 0 16 16" style="width:28px;height:28px;background:#16161A;border-radius:100px;padding:5px;box-sizing:border-box;flex:none;display:block;" aria-hidden="true"><path fill="#F7F6F3" d="M1 3.6h14v.6L8 9 1 4.2V3.6zm0 2.2L8 10.5 15 5.8v6.6H1V5.8z"/></svg><a href="mailto:joliatamelia@gmail.com" class="gradlink" style="color:#16161A;">joliatamelia@gmail.com</a></div>
+      <div style="display:flex;align-items:center;gap:11px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.35;color:#16161A;"><svg viewBox="0 0 16 16" style="width:28px;height:28px;background:#16161A;border-radius:100px;padding:5px;box-sizing:border-box;flex:none;display:block;" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="#F7F6F3"/><g fill="none" stroke="#16161A" stroke-width="1.1"><circle cx="8" cy="8" r="7.2"/><ellipse cx="8" cy="8" rx="3.2" ry="7.2"/><path d="M1 5.6h14M1 10.4h14"/></g></svg><a href="https://joliatamelia-jpg.github.io/portfolio/" target="_blank" rel="noopener" class="gradlink" style="color:#16161A;">joliatamelia-jpg.github.io/portfolio</a></div>
+      <div style="display:flex;align-items:center;gap:11px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.35;color:#16161A;"><svg viewBox="0 0 16 16" style="width:28px;height:28px;background:#16161A;border-radius:100px;padding:5px;box-sizing:border-box;flex:none;display:block;" aria-hidden="true"><rect x="0.4" y="0.4" width="15.2" height="15.2" rx="2.4" fill="#F7F6F3"/><path fill="#16161A" d="M2.7 6.1h2.2v7.2H2.7zM3.8 2.5a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM6.4 6.1h2.1v1c.3-.6 1.1-1.2 2.3-1.2 1.7 0 2.8 1 2.8 3.2v4.2h-2.2V9.5c0-1-.4-1.6-1.3-1.6-.8 0-1.4.6-1.4 1.6v3.8H6.4z"/></svg><a href="https://www.linkedin.com/in/ameliajoliat" target="_blank" rel="noopener" class="gradlink" style="color:#16161A;">/ameliajoliat</a></div>
+      </div>
+    </div>
+    <div style="background:#f1efe9;border:1px solid #e2e0d9;border-radius:6px;padding:30px 28px;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:26px;">Skills</div>
+<div style="display:flex;flex-direction:column;gap:22px;">
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#16161A;margin-bottom:10px;">Adobe InDesign</div>
+          <div style="position:relative;height:14px;">
+            <div style="position:absolute;inset:0;border-radius:100px;background:#e7e5df;border:1px solid #d3d1ca;overflow:hidden;"><div style="height:100%;width:100%;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);border-radius:100px;"></div></div>
+            <div style="position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:100px;background:#fff;border:1.5px solid #cbc9c1;box-shadow:0 1px 4px rgba(0,0,0,.18);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#16161A;margin-bottom:10px;">Adobe Photoshop</div>
+          <div style="position:relative;height:14px;">
+            <div style="position:absolute;inset:0;border-radius:100px;background:#e7e5df;border:1px solid #d3d1ca;overflow:hidden;"><div style="height:100%;width:100%;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);border-radius:100px;"></div></div>
+            <div style="position:absolute;top:50%;left:100%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:100px;background:#fff;border:1.5px solid #cbc9c1;box-shadow:0 1px 4px rgba(0,0,0,.18);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#16161A;margin-bottom:10px;">Adobe Express</div>
+          <div style="position:relative;height:14px;">
+            <div style="position:absolute;inset:0;border-radius:100px;background:#e7e5df;border:1px solid #d3d1ca;overflow:hidden;"><div style="height:100%;width:95%;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);border-radius:100px;"></div></div>
+            <div style="position:absolute;top:50%;left:95%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:100px;background:#fff;border:1.5px solid #cbc9c1;box-shadow:0 1px 4px rgba(0,0,0,.18);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#16161A;margin-bottom:10px;">Adobe Illustrator</div>
+          <div style="position:relative;height:14px;">
+            <div style="position:absolute;inset:0;border-radius:100px;background:#e7e5df;border:1px solid #d3d1ca;overflow:hidden;"><div style="height:100%;width:80%;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);border-radius:100px;"></div></div>
+            <div style="position:absolute;top:50%;left:80%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:100px;background:#fff;border:1.5px solid #cbc9c1;box-shadow:0 1px 4px rgba(0,0,0,.18);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#16161A;margin-bottom:10px;">HTML</div>
+          <div style="position:relative;height:14px;">
+            <div style="position:absolute;inset:0;border-radius:100px;background:#e7e5df;border:1px solid #d3d1ca;overflow:hidden;"><div style="height:100%;width:75%;background:linear-gradient(90deg,#d9afee,#afbaee,#afeeee,#bfeeaf);border-radius:100px;"></div></div>
+            <div style="position:absolute;top:50%;left:75%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:100px;background:#fff;border:1.5px solid #cbc9c1;box-shadow:0 1px 4px rgba(0,0,0,.18);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#f1efe9;border:1px solid #e2e0d9;border-radius:6px;padding:32px 28px;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8a8a90;margin-bottom:34px;">Experience</div>
+      <div style="position:relative;padding-left:40px;">
+        <div style="position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:#dcdbd7;"></div>
+    <div style="position:relative;padding-bottom:40px;">
+      <div style="position:absolute;left:-40px;top:2px;width:15px;height:15px;border-radius:100px;background:#d9afee;border:3px solid #F7F6F3;box-shadow:0 0 0 1.5px #d9afee;"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:6px;">2020 — 2024</div>
+      <h3 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;line-height:1;">Kent State University</h3>
+      <div style="font-size:15px;color:#5f5f66;margin-top:6px;">Bachelor's in Visual Communication Design, minor in UX Design</div>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:15px;line-height:1.55;color:#44444c;display:flex;flex-direction:column;gap:4px;"><li>Learning design principles</li><li>Working across a variety of media</li><li>Establishing an Adobe Suite skillset</li></ul>
+    </div>
+    <div style="position:relative;padding-bottom:40px;">
+      <div style="position:absolute;left:-40px;top:2px;width:15px;height:15px;border-radius:100px;background:#afbaee;border:3px solid #F7F6F3;box-shadow:0 0 0 1.5px #afbaee;"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:6px;">2023 — 2024</div>
+      <h3 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;line-height:1;">Sherwin-Williams</h3>
+      <div style="font-size:15px;color:#5f5f66;margin-top:6px;">Design Co-op</div>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:15px;line-height:1.55;color:#44444c;display:flex;flex-direction:column;gap:4px;"><li>Custom work for clients</li><li>Exterior &amp; interior color palette creation</li><li>Handmade deliverables</li><li>Adobe Photoshop</li></ul>
+    </div>
+    <div style="position:relative;">
+      <div style="position:absolute;left:-40px;top:2px;width:15px;height:15px;border-radius:100px;background:#afeeee;border:3px solid #F7F6F3;box-shadow:0 0 0 1.5px #afeeee;"></div>
+      <div style="font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a90;margin-bottom:6px;">2024 — Present</div>
+      <h3 style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;line-height:1;">North Coast Media</h3>
+      <div style="font-size:15px;color:#5f5f66;margin-top:6px;">Graphic Designer</div>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:15px;line-height:1.55;color:#44444c;display:flex;flex-direction:column;gap:4px;"><li>Refining Adobe skills</li><li>Coding animated HTML5 ads</li><li>Designing custom full-stack campaigns for clients from scratch — print, social, and web</li><li>Working directly with clients and matching brand identity</li><li>Designing specifically for print vs. web</li><li>Aiding the team with the parent company’s magazine layout</li></ul>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer style="border-top:1.5px solid #16161A;margin-top:40px;">
+  <div style="max-width:1180px;margin:0 auto;padding:64px 40px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;">
+    <div><div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:44px;line-height:1;">Let's work together.</div><a href="mailto:joliatamelia@gmail.com" class="gradlink" style="font-family:'Space Mono',monospace;font-size:14px;color:#16161A;margin-top:12px;display:inline-block;">joliatamelia@gmail.com</a></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a90;text-align:right;line-height:2;"><span style="font-size:15px;display:inline-block;transform:translateY(4px);">©</span> 2026 Amelia Joliat<br>Portfolio</div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>class Component extends DCLogic { renderVals(){ return {}; } }</script>
+</body>
+</html>
